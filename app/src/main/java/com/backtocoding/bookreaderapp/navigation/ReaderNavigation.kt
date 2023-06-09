@@ -11,7 +11,8 @@ import com.backtocoding.bookreaderapp.screens.home.Home
 fun ReaderNavigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = ReaderScreens.SplashScreen.name) {
-        composable(ReaderScreens.SplashScreen.name) {
+
+    composable(ReaderScreens.SplashScreen.name) {
             ReaderSplashScreen(navController = navController)
         }
 
