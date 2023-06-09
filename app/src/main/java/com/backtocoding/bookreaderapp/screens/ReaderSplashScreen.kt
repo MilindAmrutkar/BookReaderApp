@@ -21,21 +21,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.backtocoding.bookreaderapp.navigation.ReaderScreens
 import kotlinx.coroutines.delay
 
-@Preview
 @Composable
-fun ReaderSplashScreen(navController: NavController = NavController(context = LocalContext.current)) {
+fun ReaderSplashScreen(navController: NavController) {
 
     val scale = remember {
         Animatable(0f)
     }
     LaunchedEffect(key1 = true) {
-        scale.animateTo(targetValue = 0.9f,
+        scale.animateTo(
+            targetValue = 0.9f,
             animationSpec = tween(
                 durationMillis = 800,
                 easing = {
@@ -45,6 +44,7 @@ fun ReaderSplashScreen(navController: NavController = NavController(context = Lo
             )
         )
         delay(2000L)
+        navController.navigate(ReaderScreens.LoginScreen.name)
     }
 
     Surface(
