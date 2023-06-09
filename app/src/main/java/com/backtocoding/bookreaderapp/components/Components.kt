@@ -28,7 +28,7 @@ fun ReaderLogo(modifier: Modifier = Modifier) {
     Text(
         text = "A. Reader",
         modifier = modifier.padding(bottom = 16.dp),
-        style = MaterialTheme.typography.headlineMedium,
+        style = MaterialTheme.typography.headlineLarge,
         color = Color.Red.copy(alpha = 0.5f)
     )
 }
