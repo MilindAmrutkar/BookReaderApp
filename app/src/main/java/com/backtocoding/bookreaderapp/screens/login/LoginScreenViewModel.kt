@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.backtocoding.bookreaderapp.model.ReaderUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,22 +19,12 @@ class LoginScreenViewModel : ViewModel() {
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
-    fun createUserWithEmailAndPassword(email: String, password: String) {
-        try {
-
-        } catch (ex: Exception) {
-            Log.d("FB", "createUserWithEmailAndPassword: ")
-        }
-    }
-
     fun signInWithEmailAndPassword(email: String, password: String, home: () -> Unit) =
         viewModelScope.launch {
             try {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val displayName = task.result.user?.email?.split('@')?.get(0)
-                            createUser(displayName)
                             home()
                         } else {
                             Log.d("FB", "signInWithEmailAndPassword: ${task.result}")
@@ -46,9 +37,14 @@ class LoginScreenViewModel : ViewModel() {
 
     private fun createUser(displayName: String?) {
         val userId = auth.currentUser?.uid
-        val user = mutableMapOf<String, Any>()
-        user["user_id"] = userId.toString()
-        user["display_name"] = displayName.toString()
+        val user = ReaderUser(
+            userId = userId.toString(),
+            displayName = displayName.toString(),
+            avatarUrl = "",
+            quote = "Life is great",
+            profession = "Android Developer",
+            id = null
+        ).toMap()
 
         FirebaseFirestore.getInstance().collection("users")
             .add(user)
@@ -60,6 +56,8 @@ class LoginScreenViewModel : ViewModel() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val displayName = task.result.user?.email?.split('@')?.get(0)
+                        createUser(displayName)
                         home()
                     } else {
                         Log.d("FB", "createUserWithEmailAndPassword: ${task.result}")
