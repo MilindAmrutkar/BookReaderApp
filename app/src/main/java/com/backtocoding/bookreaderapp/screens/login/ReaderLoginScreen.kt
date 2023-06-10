@@ -39,9 +39,13 @@ import com.backtocoding.bookreaderapp.R
 import com.backtocoding.bookreaderapp.components.EmailInput
 import com.backtocoding.bookreaderapp.components.PasswordInput
 import com.backtocoding.bookreaderapp.components.ReaderLogo
+import com.backtocoding.bookreaderapp.navigation.ReaderScreens
 
 @Composable
-fun ReaderLoginScreen(navController: NavController) {
+fun ReaderLoginScreen(
+    navController: NavController,
+    viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
@@ -54,9 +58,13 @@ fun ReaderLoginScreen(navController: NavController) {
             ReaderLogo()
             if (showLoginForm.value) {
                 UserForm(loading = false, isCreateAccount = false) { email, password ->
+                    viewModel.signInWithEmailAndPassword(email = email, password = password) {
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
                 }
             } else {
                 UserForm(loading = false, isCreateAccount = true) { email, password ->
+
                 }
             }
         }
