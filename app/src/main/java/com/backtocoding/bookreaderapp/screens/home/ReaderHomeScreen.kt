@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -159,6 +160,19 @@ fun ListCard(
                     BookRating(score = 3.5)
                 }
             }
+
+            Text(
+                text = "Book title", modifier = Modifier.padding(4.dp),
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = "Authors: All...",
+                modifier = Modifier.padding(4.dp),
+                style = MaterialTheme.typography.labelSmall
+            )
         }
     }
 
