@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,13 +60,13 @@ fun Home(navController: NavController = NavController(LocalContext.current)) {
         FABContent {}
     }) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            HomeContent(navController)
+            HomeContent(it, navController)
         }
     }
 }
 
 @Composable
-fun HomeContent(navController: NavController) {
+fun HomeContent(paddingValues: PaddingValues, navController: NavController) {
     val email = FirebaseAuth.getInstance().currentUser?.email
     val currentUserName = if (!email.isNullOrEmpty()) {
         email.split("@")[0]
@@ -73,8 +74,13 @@ fun HomeContent(navController: NavController) {
         "N/A"
     }
     Column(
-        Modifier.padding(2.dp),
-        verticalArrangement = Arrangement.SpaceEvenly
+        Modifier.padding(
+            top = paddingValues.calculateTopPadding(),
+            bottom = 2.dp,
+            start = 2.dp,
+            end = 2.dp
+        ),
+        verticalArrangement = Arrangement.Top
     ) {
         Row(modifier = Modifier.align(alignment = Alignment.Start)) {
             TitleSection(label = "Your reading \n " + " activity right now. ")
