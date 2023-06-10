@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,8 +32,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -107,6 +110,39 @@ fun HomeContent(paddingValues: PaddingValues, navController: NavController) {
                 Divider()
             }
         }
+        ListCard()
+    }
+}
+
+@Preview
+@Composable
+fun RoundedButton(
+    label: String = "Reading",
+    radius: Int = 29,
+    onPress: () -> Unit = {}
+) {
+    Surface(
+        modifier = Modifier.clip(
+            RoundedCornerShape(
+                bottomEndPercent = radius,
+                topStartPercent = radius
+            ),
+        ),
+        color = Color(0xFF92CBDF)
+    ) {
+        Column(
+            modifier = Modifier
+                .width(90.dp)
+                .heightIn(40.dp)
+                .clickable {
+                    onPress.invoke()
+                },
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = label, style = TextStyle(color = Color.White, fontSize = 15.sp))
+        }
+
     }
 }
 
@@ -135,6 +171,7 @@ fun ListCard(
             modifier = Modifier.width(screenWidth.dp - (spacing * 2)),
             horizontalAlignment = Alignment.Start
         ) {
+            // Book Image and Rating Row
             Row(horizontalArrangement = Arrangement.Center) {
                 Image(
                     painter = rememberAsyncImagePainter(model = ""),
@@ -161,6 +198,7 @@ fun ListCard(
                 }
             }
 
+            //Book title Row
             Text(
                 text = "Book title", modifier = Modifier.padding(4.dp),
                 fontWeight = FontWeight.Bold,
@@ -168,11 +206,20 @@ fun ListCard(
                 overflow = TextOverflow.Ellipsis
             )
 
+            //Book Author Row
             Text(
                 text = "Authors: All...",
                 modifier = Modifier.padding(4.dp),
                 style = MaterialTheme.typography.labelSmall
             )
+
+            //Book Reading Corner Button Row
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                RoundedButton(label = "Reading", radius = 70)
+            }
         }
     }
 
