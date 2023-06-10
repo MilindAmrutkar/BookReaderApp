@@ -2,14 +2,18 @@ package com.backtocoding.bookreaderapp.screens.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.backtocoding.bookreaderapp.navigation.ReaderScreens
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -66,9 +72,21 @@ fun ReaderAppBar(
                     color = Color.Red.copy(alpha = 0.7f),
                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 )
+                Spacer(modifier = Modifier.width(150.dp))
             }
         },
-        actions = {},
+        actions = {
+            IconButton(onClick = {
+                FirebaseAuth.getInstance().signOut().run {
+                    navController.navigate(ReaderScreens.LoginScreen.name)
+                }
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Logout,
+                    contentDescription = "Logout"
+                )
+            }
+        },
         colors = TopAppBarDefaults.smallTopAppBarColors(Color.Transparent)
     )
 
