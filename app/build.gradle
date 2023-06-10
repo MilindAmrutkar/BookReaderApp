@@ -85,6 +85,7 @@ dependencies {
 
     // Coil Dependency
     implementation 'io.coil-kt:coil:2.4.0'
+    implementation "io.coil-kt:coil-compose:2.4.0"
 
     // Navigation Dependency Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
