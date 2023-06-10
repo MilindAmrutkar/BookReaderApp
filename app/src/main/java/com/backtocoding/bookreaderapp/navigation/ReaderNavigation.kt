@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.backtocoding.bookreaderapp.screens.ReaderSplashScreen
 import com.backtocoding.bookreaderapp.screens.home.Home
 import com.backtocoding.bookreaderapp.screens.login.ReaderLoginScreen
+import com.backtocoding.bookreaderapp.screens.stats.ReaderStatsScreen
 
 @Composable
 fun ReaderNavigation() {
@@ -23,6 +24,10 @@ fun ReaderNavigation() {
 
         composable(ReaderScreens.LoginScreen.name) {
             ReaderLoginScreen(navController = navController)
+        }
+
+        composable(ReaderScreens.ReaderStatsScreen.name) {
+            ReaderStatsScreen(navController = navController)
         }
     }
 
