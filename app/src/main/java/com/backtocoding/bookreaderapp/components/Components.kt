@@ -3,9 +3,11 @@ package com.backtocoding.bookreaderapp.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -285,8 +287,11 @@ fun ListCard(
             .clickable { onPressDetails.invoke(book.title.toString()) }) {
 
         Column(
-            modifier = Modifier.width(screenWidth.dp - (spacing * 2)),
-            horizontalAlignment = Alignment.Start
+            modifier = Modifier
+                .width(screenWidth.dp - (spacing * 2))
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             // Book Image and Rating Row
             Row(horizontalArrangement = Arrangement.Center) {
@@ -332,6 +337,7 @@ fun ListCard(
 
             //Book Reading Corner Button Row
             Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Bottom
             ) {
@@ -357,15 +363,14 @@ fun RoundedButton(
         ),
         color = Color(0xFF92CBDF)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .width(90.dp)
                 .heightIn(40.dp)
                 .clickable {
                     onPress.invoke()
                 },
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            contentAlignment = Alignment.Center
         ) {
             Text(text = label, style = TextStyle(color = Color.White, fontSize = 15.sp))
         }
