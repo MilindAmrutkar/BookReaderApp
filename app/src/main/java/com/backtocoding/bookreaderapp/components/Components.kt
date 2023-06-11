@@ -250,7 +250,10 @@ fun BookRating(score: Double = 4.5) {
         shadowElevation = 6.dp,
         color = Color.White
     ) {
-        Column(modifier = Modifier.padding(4.dp)) {
+        Column(
+            modifier = Modifier.padding(4.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Icon(
                 imageVector = Icons.Filled.StarBorder, contentDescription = "Start",
                 modifier = Modifier.padding(3.dp)
